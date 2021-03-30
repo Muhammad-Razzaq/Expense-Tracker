@@ -3,14 +3,14 @@ import { TransactionContext } from './TransContext';
 
 export default function Child() {
 
-    let { transactions, addTransaction } = useContext(TransactionContext);
+    let { transactions, addTransaction, delTransaction } = useContext(TransactionContext);
 
     let [newDesc, setDesc] = useState("");
     let [newAmount, setAmount] = useState(0)
         ;
     function handleAddition(event) {
         event.preventDefault();
-        if(Number(newAmount) === 0){
+        if (Number(newAmount) === 0) {
             alert("Enter correct amount");
             return false;
         }
@@ -18,6 +18,8 @@ export default function Child() {
             amount: Number(newAmount),
             desc: newDesc
         })
+        setDesc('')
+        setAmount('')
     }
 
     const getIncome = () => {
@@ -52,11 +54,13 @@ export default function Child() {
             <hr />
             <ul className="transactionHistory">
 
-                {transactions.map((transObj, idx) => {
+                {transactions.map((transObj, index) => {
                     return (
-                        <li key={idx}>
+                        <li key={index}>
                             <span>{transObj.desc}</span>
-                            <span>{transObj.amount}</span>
+                            <span>{transObj.amount}
+                                <span className="del" onClick={() => { delTransaction(index) }}>========X</span>
+                            </span>
                         </li>
                     )
                 })}

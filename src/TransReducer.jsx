@@ -5,6 +5,13 @@ const TransactionReducer = ((state, action) => {
             return [action.payload, ...state]
         }
 
+        case "DEL_TRANSACTION": {
+            return (
+                [...state],
+                state.filter((trans, index) => index !== action.payload)
+            )
+        }
+
         default: {
             return state;
         }

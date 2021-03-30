@@ -23,10 +23,18 @@ export const TransactionProvider = ({ children }) => {
         })
     }
 
+    function delTransaction(transID) {
+        dispatch({
+            type: "DEL_TRANSACTION",
+            payload: transID,
+        })
+    }
+
     return (
         <TransactionContext.Provider value={{
             transactions: state,
-            addTransaction
+            addTransaction,
+            delTransaction
         }}>
             { children}
         </TransactionContext.Provider>
